@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3>{{ nazwa }}
+    <button type="button" class="btn btn-outline-success float-end" data-bs-toggle="modal" data-bs-target="#mymodal">Dodaj Skrzynie</button></h3><br>
+    
+    <!-- Modal dodaj skrzynie -->
+    <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Dodaj skrzynie - {{ nazwa }}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="post" action="{{ url_for('crates_set', nazwa=nazwa) }}">
+              {{ form_add.hidden_tag() }}
+              <div class="form-group">
+                {{ form_add.ilość.label(class="form-control-label") }}
+                {% if form_add.ilość.errors %}
+                {{ form_add.ilość(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                        {% for error in form_add.ilość.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form_add.ilość(class="form-control form-control-lg") }}
+                {% endif %}
+              </div>
+              <div class="form-group">
+                {{ form_add.content.label(class="form-control-label") }}
+                {% if form_add.content.errors %}
+                {{ form_add.content(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                        {% for error in form_add.content.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form_add.content(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="form-group">
+              {{ form_add.submit(class="btn btn-success") }}
+            </div>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Tabela ze skrzyniami -->
+  
+  <table id="data" class="table table-striped table-bordered table-sm"> 
+    <thead>
+      <tr>
+        <!--Your Columns HERE-->
+            <th scope="col">sk</th>
+            <th scope="col">zawartość</th>
+            <th scope="col">szer<br>[mm]</th>
+            <th scope="col">wys<br>[mm]</th>
+            <th scope="col">dł<br>[mm]</th>
+            <th scope="col">waga<br>[kg]</th>
+            <th scope="col">kto</th>
+            <!-- <th scope="col">kiedy</th> -->
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        
+      <!-- Your rows inside the table HERE:  -->
+      <tbody>
+      {% for skrzynia in skrzynie %}
+            <tr>
+                <td style="width:2%">{{ loop.index }}</td>
+                <td style="width:25%">{{ skrzynia.zawartosc }}</td>
+                <td style="width:3%">{{ skrzynia.szer }}</td>
+                <td style="width:3%">{{ skrzynia.wys }}</td>
+                <td style="width:3%">{{ skrzynia.dł }}</td>
+                <td style="width:3%">{{ skrzynia.waga }}</td>
+                <td style="width:5%">{{ skrzynia.autor }}</td>
+                <!-- <td style="width:5%">{{ skrzynia.data.strftime("%d-%m-%Y") }}</td> -->
+                <td style="width:5%" class="text-center">
+                  <a href="#" class="btn btn-outline-dark btn-sm m-1" style="width:38px; height:38px;" data-bs-toggle="modal" data-bs-target="#modaledit{{skrzynia.id}}">
+                    <i class="icon-pencil icon-large"></i>
+                  </button>
+                  <!-- <a href="#" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#modaledit{{skrzynia.id}}">
+                    spec
+                  </button> -->
+                </td>
+            </tr>
+            
+            <!-- Modal edytuj skrzynie -->
+            <div id="modaledit{{skrzynia.id}}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edycja skrzyni: SK-{{loop.index}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="modaledit{{skrzynia.id}}" method="POST" action="">
+                      <div class="form-group">
+                        <label for="crate_content">zawartość</label>
+                        <textarea id="crate_content" name="content">{{skrzynia.zawartosc}}</textarea>
+                        <label for="exact_content">dokładna zawartość</label>
+                        <textarea id="exact_content" name="exact_content" style="width:100%"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <div>
+                          <label for="szer">szerokość:</label><br>
+                          <input type="number" id="szer" name="szerokość" value="{{ skrzynia.szer }}"> [mm]
+                        </div>
+                        <div>
+                          <label for="wys">wysokość:</label><br>
+                          <input type="number" id="wys" name="wysokość" value="{{ skrzynia.wys }}"> [mm]
+                        </div>
+                        <div>
+                          <label for="dł">długość:</label><br>
+                          <input type="number" id="dł" name="długość" value="{{ skrzynia.dł }}"> [mm]
+                        </div>
+                        <div>
+                          <label for="waga">waga:</label><br>
+                          <input type="number" id="waga" name="waga" value="{{ skrzynia.waga }}"> [kg]
+                        </div>
+                      </div>
+                       
+                   
+                      <div class="form-group">
+                        <textarea id="sk" name="sk" hidden>{{skrzynia.id}}</textarea>
+                      </div>
+                      <div class="form-group">
+                        <textarea id="user" name="user" hidden>{{skrzynia.autor}}</textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success" id="id">Zmień</button>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+  {% endfor %}     
+  
+</tbody>
+    
+      <tfoot>
+        <tr> 
+          <!--Your Columns HERE -->
+          <th scope="col">sk</th>
+          <th scope="col">zawartość</th>
+          <th scope="col">szer<br>[mm]</th>
+          <th scope="col">wys<br>[mm]</th>
+          <th scope="col">dł<br>[mm]</th>
+          <th scope="col">waga<br>[kg]</th>
+          <th scope="col">kto</th>
+          <!-- <th scope="col">kiedy</th> -->
+          <th scope="col"></th>
+        </tr>
+      </tfoot>
+     </table>  
+  
+  {% endblock content%}
+  
+  {% block scripts %}
+  <script>
+$(document).ready( function () {
+    $('#data').DataTable({
+      "pageLength": 100,
+      columns: [
+      {orderable: true, searchable: true},
+      {orderable: false, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: false, searchable: false}],
+    } );
+  } );
+</script>
+{% endblock scripts %}

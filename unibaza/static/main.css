@@ -1,0 +1,293 @@
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.bg-steel {
+  background-color: #5f788a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+#crate_content {
+  width: 100%;
+}
+
+#close_button {
+  background:none;
+  border:none;
+  margin:0;
+  padding:0;
+  cursor: pointer;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type=number] {
+  width: 30%;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+li {
+  text-align: center;
+  line-height: 50px;
+  height: 50px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+#indeks {
+  float: left;
+  width: 5%;
+  font-size: clamp(12px,1.5vw,16px);
+}
+
+#moduł {
+  float: left;
+  width: 25%;
+  font-size: clamp(12px,1.5vw,16px);
+}
+
+#moduł:hover {
+  cursor: pointer;
+  font-size: clamp(14px,1.5vw,18px);
+}
+
+.zadanie {
+  float: left;
+  width: 7%;
+  padding: 0;
+}
+
+/* obramowania divów nieparzystych wierszy tabeli */
+li:nth-child(odd)>.zadanie{
+  border: #DBDBDB solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(odd)>#moduł{
+  border: #DBDBDB solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(odd)>#indeks{
+  border: #DBDBDB solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(odd)>.zadanie:nth-child(12){
+  border-right: #DBDBDB solid 0.5px;
+} 
+
+/* obramowania divów parzystych wierszy tabeli */
+li:nth-child(even)>.zadanie{
+  background-color: #EDEDED;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(even)>#moduł{
+  background-color: #EDEDED;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(even)>#indeks{
+  background-color: #EDEDED;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+} 
+
+li:nth-child(even)>.zadanie:nth-child(12){
+  border-right: #CFCFCF solid 0.5px;
+} 
+
+.modulbtn {
+  height: 100%;
+  width: 100%;
+}
+
+.modalbtn {
+  width: 20%;
+  height: 100%;
+  float: left;
+  margin: 10px;
+}
+
+#editbtn {
+  border: none;
+}
+
+#editbtn.focus {
+  border: rgb(0, 0, 0);
+  outline: none;
+}
+
+.zadanie>i{
+  color: #128870;
+  font-size: clamp(12px,1.5vw,22px)
+}
+
+#zaplanowane {
+  color: #bbb;
+}
+
+a {
+  display: block;
+  color:#333333;
+  text-decoration: none;
+}
+
+a:hover {
+  display: block;
+  color: #333333;
+}
+
+div.sticky {
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 56px;
+  /* top: 96px; */
+  background-color: #FAFAFA;
+  z-index: 100;
+  font-weight: 700;
+}
+
+.lp{
+  background: #fafafa;
+  width: 5%;
+  font-size: clamp(6px,0.8vw,16px);
+  float: left;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+}
+
+.moduł{
+  background: #fafafa;
+  width: 25%;
+  font-size: clamp(6px,0.8vw,16px);
+  float: left;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+}
+
+.td-steady {
+  background: #fafafa;
+  width: 7%;
+  font-size: clamp(5px,0.8vw,16px);
+  float: left;
+  margin-bottom: 10px;
+  border: #CFCFCF solid 0.5px;
+  border-right: 0;
+}
+
+.td-steady:last-child {
+  border-right: #CFCFCF solid 0.5px;
+}
+
+/* wygląd wskaźnika rozpoczętego zadania */
+li>div>.spinner-grow{
+  width: 0.5rem; 
+  height: 0.5rem; 
+  position: relative;
+  bottom: 0.25rem;
+}
+
+#statusbtn {
+  width: 12rem;
+  height: 6rem;
+  line-height: 6rem;
+  text-align: left;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+#tabela{
+  background-color: #EDEDED;
+}
+
+#response {
+  color: #dddddd;
+  padding:10px;
+  background-color:rgb(52, 122, 52);
+  margin-bottom:20px;
+ }

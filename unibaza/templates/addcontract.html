@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Dodawanie kontraktu</legend>
+
+    <div class="form-group">
+        {{ form.numer.label(class="form-control-label") }}
+        {% if form.numer.errors %}
+            {{ form.numer(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.numer.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.numer(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+            
+    <div class="form-group">
+        {{ form.nazwa.label(class="form-control-label") }}
+        {% if form.nazwa.errors %}
+            {{ form.nazwa(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.nazwa.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.nazwa(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+            
+    <div class="form-group">
+        {{ form.kraj.label(class="form-control-label") }}
+        {% if form.kraj.errors %}
+            {{ form.kraj(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.kraj.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.kraj(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        {{ form.kolor.label(class="form-control-label") }}
+        {% if form.kolor.errors %}
+            {{ form.kolor(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.kolor.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.kolor(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+
+        </fieldset><br>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>   
+{% endblock content %}

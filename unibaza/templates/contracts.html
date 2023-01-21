@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Wybór kontraktu</legend>
+
+    <div class="form-group">
+        {{ form.kontrakt.label(class="form-control-label") }}
+        {% if form.kontrakt.errors %}
+            {{ form.kontrakt(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.kontrakt.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.kontrakt(class="form-control form-control-lg") }}
+        {% endif %}
+    </div>
+        </fieldset></br>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+
+<table id="data" class="table table-striped"> 
+    <thead>
+        <tr>
+            <!--Your Columns HERE-->
+            <th scope="col">numer</th>
+            <th scope="col">nazwa</th>
+            <th scope="col">kraj</th>
+            <th scope="col">kolor</th>
+            <th scope="col">ilość skrzyń</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Your rows inside the table HERE:  -->
+        {% for kontrakt in kontrakty %}
+            <tr>
+                <td>{{ kontrakt.numer }}</td>
+                <td>{{ kontrakt.nazwa }}</td>
+                <td>{{ kontrakt.kraj }}</td>
+                <td>{{ kontrakt.kolor }}</td>
+                <td>{{ kontrakt.skrzynie_ref | length }}</td>
+            </tr>
+        {% endfor %}        
+    </tbody>
+    <tfoot>
+        <tr>
+            <!--Your Columns HERE-->
+            <th scope="col">numer</th>
+            <th scope="col">nazwa</th>
+            <th scope="col">kraj</th>
+            <th scope="col">kolor</th>
+            <th scope="col">ilość skrzyń</th>
+        </tr>
+    </tfoot>
+</table>  
+{% endblock content%}
+
+{% block scripts %}
+<script>
+$(document).ready( function () {
+    $('#data').DataTable({
+      "pageLength": 100,
+      columns: [
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: true, searchable: true},
+      {orderable: false, searchable: true},
+      {orderable: false, searchable: false}],
+    } );
+  } );
+</script>
+{% endblock scripts %}

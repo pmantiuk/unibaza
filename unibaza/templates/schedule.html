@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- nagłówek tabeli -->
+<div class="container-fluid" style="padding-left: 0; padding-right: 0;">
+    <div class="sticky">
+        <!-- <table class="table table-striped table-bordered table-sm" id="tabela">
+            <thead> -->
+                <!-- <tr class="table-header"> -->
+                    <div class="lp">lp</div>
+                    <div class="moduł">zadanie</div>
+                    {% for header in headers %}
+                        <div class="td-steady">{{header}}</div>
+                    {% endfor %}
+                <!-- </tr> -->
+            <!-- </thead>
+        </table> -->
+    </div>  
+
+<!-- ciało tabeli -->
+<div class="row">
+<div id="list">
+<div id="response"></div>
+<!-- <ul id="theSortableStuff"> -->
+<ul class="reorder">
+
+    {% for modul in realizacja %}
+    <!-- <li id="task-{{modul.id}}"> -->
+    <li id="{{modul.id}}">
+                <div id="indeks">{{loop.index}}</div>
+                <div id="moduł"><a href="#" data-bs-toggle="modal" data-bs-target="#taskModal{{modul.id}}">{{modul.moduł}}</a></div>  
+            {% for obszar in obszary.keys() %}
+                <div class="zadanie">
+                    {% if modul[obszar] == 1 %}
+                        <div class="spinner-grow spinner-grow-sm text-danger" role="status"></div>
+                    {% elif modul[obszar] == 2 %}
+                        <i class={{ obszary[obszar] }}></i>
+                    {% elif modul[obszar] == 3 %}
+                        -
+                    {% else %}
+                        <i class={{ obszary[obszar] }} id="zaplanowane"></i>  
+                    {% endif %} 
+                </div> 
+                {% endfor %} 
+                <div style="clear: both;"></div>                  
+                
+<!-- taskModal - modal z wyborem obszaru prac -->
+    <div class="modal fade" id="taskModal{{modul.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel"><small style="font-size: 1rem;">{{loop.index}}:</small> {{modul.moduł}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">    
+                        <div class="row no-gutters">
+                            <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-secondary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_stropy" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica stropy</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-secondary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="formatki_stropy" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-align-center icon-4x" style="color: white; display: block;"></i>płyty stropy</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-success" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="podłoga" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-anchor icon-4x" style="color: white; display: block;"></i>podłoga</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-primary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="sufit" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-umbrella icon-4x" style="color: white; display: block;"></i>sufit</button></div>
+                            {% if modul.dach==3 %}
+                                <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"></div>
+                            {% else %}
+                                <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-info" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="dach" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-cloud icon-4x" style="color: white; display: block;"></i>dach</button></div>
+                            {% endif %}
+                            <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-dark" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica ściany</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-dark" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="formatki_sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-align-center icon-4x" style="color: white; display: block;"></i>płyty ściany</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-warning" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-barcode icon-4x" style="color: white; display: block;"></i>ściany</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-danger" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="montaz" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-home icon-4x" style="color: white; display: block;"></i>montaż</button></div>
+                            <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-light" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="odbior" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-ok icon-4x" style="color:green; display: block;"></i>odbiór</button></div>
+                        </div>
+                    </div>
+                </div>  
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- statusModal - modal z wyborem statusu prac na danym obszarze -->
+    <div class="modal fade" id="statusModal{{modul.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">{{modul.moduł}}</h5>
+                    <h5 id="nazwa_operacji"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="POST">
+                        <input type="text" value="{{modul.id}}" name="id" hidden>
+                        <input type="text" id="operacja_modal" name="operacja" hidden>
+                        <button class="btn btn-warning" type="submit" id="statusbtn" name="status" value="rozpoczęte"><i class="icon-cogs icon-2x"></i> ROZPOCZĘTE</button>
+                        <button class="btn btn-success" type="submit" id="statusbtn" name="status" value="zakończone"><i class="icon-ok icon-2x"></i> ZAKOŃCZONE</button>
+                        <button class="btn btn-danger" type="submit" id="statusbtn" name="status" value="reset"><i class="icon-remove icon-2x"></i> RESET</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#taskModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal">Powrót</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</li>
+{% endfor %}
+</ul>
+</div>
+</div>
+</div>
+
+<!-- skrypt do sortowania zawartości tabeli -->
+<!-- <script>
+    var $sortables = $("#theSortableStuff").sortable({
+        stop: function() {
+            var sortedItems = $sortables.sortable("toArray");
+            // Update some form in the DOM or use AJAX to invoke a server-side update
+      }
+    });
+</script> -->
+
+<!-- skrypt do sortowania z filmiku yt -->
+<script type="text/javascript">
+    $(document).ready(function(){  
+       function slideout(){
+        setTimeout(function(){
+          $("#response").slideUp("slow", function () {
+        });
+        }, 1200);
+      }
+       
+      $("#response").hide();
+      $(function() {
+        $("#list ul").sortable({ opacity: 0.8, cursor: 'move', update: function() {
+          var item_order = new Array();
+          $('ul.reorder li').each(function() {
+              item_order.push($(this).attr("id"));
+          }); 
+          var order_string = 'order='+item_order;
+          $.ajax({
+            method: "POST",
+            url: "/updateList",
+            data: order_string,
+            cache: false,
+            success: function(data){    
+                $("#response").html(data);
+                $("#response").slideDown('slow');
+                slideout();
+            }
+        });               
+        }         
+        });
+       });
+      
+    }); 
+</script>
+
+<!-- skrypt do przekazywania zmiennych z modala taskModal do statusModal -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('button').click(function() {
+            var nr = $(this).attr("id");
+            var operacja = $(this).attr("value");
+            $("#statusModal"+ nr + " " +"#nazwa_operacji").val(operacja);
+            $("#statusModal"+ nr + " " +"#operacja_modal").val(operacja);
+
+        });
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block content %}
+<!-- <input type="button" value="Dodaj zadanie" class="btn btn-outline-success"> -->
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#queueModal"><i class="icon-plus"></i> Dodaj zadanie</button>
+<br><br>
+
+  <!-- queueModal -->
+  <div class="modal fade" id="queueModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="queueModalLabel">Dodaj zadanie wycięcia drzewa</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="{{url_for('queue')}}" method="post">
+          <label for="">Zadanie: </label>
+          <input style="width:100%;" type="text" name="zadanie" placeholder="podaj co ma zostać docięte, np.: attyki budowa"><br><br>
+          <label for="kontrakt">Kontrakt:</label><br>
+          <select name="kontrakt" id="kon" style="width: 50%;">
+                <option value="Skattegarden">Skattegarden</option>
+                <option value="Cieplice II">Cieplice II</option>
+                <option value="Kriftel">Kriftel</option>
+          </select><br><br>
+          <label for="cutting_date">Data wymagalności:</label><br>
+          <input type="datetime-local" name="cutting_date" id="cutting_date">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Dodaj</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped table-bordered table-sm">
+    <thead>
+        <tr>
+            <th scope="col">lp</th>
+            <th scope="col">zadanie</th>
+            <th scope="col">kontrakt</th>
+            <th scope="col">deadline</th>
+            <th scope="col">zlecił</th>
+            <th scope="col">status</th>
+            <th scope="col" class="text-center">akcje</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for zadanie in zadania %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ zadanie.zadanie }}</td>
+            <td>{{ zadanie.kontrakt }}</td>
+            <td>{{ zadanie.deadline }}</td>
+            <td>{{ zadanie.user }}</td>
+            <td>{{ zadanie.status }}</td>
+            <td class="text-center">
+              <a href="#" class="btn btn-outline-danger" title='Odrzuć zadanie' style="width:38px; height:38px;" data-bs-toggle="modal" data-bs-target="#removeModal{{zadanie.id}}"><i class="icon-remove"></i></a>
+              <button type="submit" class="btn btn-outline-success" title='Zaakceptuj zadanie' style="width:38px; height:38px;"><i class="icon-step-forward"></i></button>
+            </td>
+        </tr>
+        <!-- queueModal -->
+        <div class="modal fade" id="removeModal{{zadanie.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="removeModalLabel">Usuwanie zadania</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="post">
+                <label for="">Czy na pewno chcesz usunąć zadanie nr {{loop.index}}:<p><h4>{{ zadanie.zadanie }}</h4></p> </label>
+                <textarea name="idnum" hidden>{{zadanie.id}}</textarea>
+                <textarea name="user" hidden>{{zadanie.user}}</textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-danger">Usuń</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      </div>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th scope="col">lp</th>
+            <th scope="col">zadanie</th>
+            <th scope="col">kontrakt</th>
+            <th scope="col">deadline</th>
+            <th scope="col">zlecił</th>
+            <th scope="col">status</th>
+            <th scope="col" class="text-center">akcje</th>
+        </tr>
+    </tfoot>
+  </table>
+
+
+{% endblock content %}
