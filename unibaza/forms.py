@@ -9,7 +9,7 @@ from unibaza import configuration
 from unibaza.models import User, Kontrakty
 
 class PickContract(FlaskForm):
-    kontrakt = SelectField('Wybierz kontrakt',choices=sorted([str(x.numer) + ' - ' + x.nazwa for x in Kontrakty.query.all()]))
+    kontrakt = SelectField('Wybierz kontrakt', choices=sorted([str(x.numer) + ' - ' + x.nazwa for x in Kontrakty.query.all()]))
     submit = SubmitField('Przejdź')
 
 class AddCrate(FlaskForm):

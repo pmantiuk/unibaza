@@ -5,9 +5,10 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort, make_response, jsonify
 from unibaza import app, db, bcrypt, configuration
 from unibaza.forms import RegistrationForm, LoginForm, AddCrate, UpdateAccountForm, PostForm, AddContract, PickContract
-from unibaza.models import User, Post, Skrzynie, Kontrakty, Queue, Realizacja
+from unibaza.models import User, Post, Skrzynie, Kontrakty, Queue, Realizacja, Metadane
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy import update
+
 
 @app.route("/")
 @app.route("/home", methods=['GET', 'POST'])
@@ -16,26 +17,30 @@ def home():
     db.create_all()
     return render_template('home.html')
 
-@app.route("/schedule", methods=['GET', 'POST'])
+# sortowalny harmonogram z zaawansowaniem prac
+@app.route("/schedule", methods = ['GET', 'POST'])
 @login_required
 def plan():
+    # pobieram z bazy danych 'unihouse.db' tabelę 'realizacja' wysortowaną po kolumnie 'listorder'
     realizacja = Realizacja.query.order_by('listorder').all()
-    obszary=configuration.obszary
-    headers=configuration.headers
+    # z pliku konfiguracyjnego pobieram list zawierające dane odnośnie używanych ikon i nazwa kolumn w tabeli realizacji
+    obszary = configuration.obszary
+    headers = configuration.headers
+    # dokonuje zmiany statusu dla odpowiedniego modułu i operacji w bazie danych 'unihouse.db'
     if request.method == 'POST':
         id = request.form['id']
         operacja = request.form['operacja']
-        moduł = Realizacja.query.filter(Realizacja.id==id).first()
-        if request.form['status']=='rozpoczęte':
+        moduł = Realizacja.query.filter(Realizacja.id == id).first()
+        if request.form['status'] == 'rozpoczęte':
             setattr(moduł, operacja, 1)
             db.session.commit()
-        elif request.form['status']=='zakończone':
+        elif request.form['status'] == 'zakończone':
             setattr(moduł, operacja, 2)
             db.session.commit()
         else:
             setattr(moduł, operacja, 0)
             db.session.commit()
-    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers)
+    return render_template('schedule.html', realizacja = realizacja, obszary = obszary, headers = headers)
 
 @app.route("/contracts_set", methods =['GET', 'POST'])
 @login_required
@@ -89,7 +94,7 @@ def addcontract():
 
 @app.route("/prints")
 def wydruki():
-    return render_template('wydruki.html')
+    return render_template('formatowka/wydruki.html')
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

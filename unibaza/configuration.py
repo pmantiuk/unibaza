@@ -1,4 +1,4 @@
-kraje =[
+kraje = [
     'DEU',
     'POL',
     'SWE',
@@ -9,7 +9,7 @@ kraje =[
     ''
 ]
 
-kolory=[
+kolory = [
     'zielony',
     'czerwony',
     'czarny',
@@ -19,24 +19,24 @@ kolory=[
     ''
 ]
 
-admins=[
+admins = [
     'pmantiuk'
 ]
 
-obszary={
+obszary = {
     'tarcica_stropy': 'icon-h-sign',
     'formatki_stropy': 'icon-eraser',
     'podłoga': 'icon-anchor',
     'sufit': 'icon-umbrella',
     'dach': 'icon-cloud',
     'tarcica_sciany': 'icon-h-sign',
-    'formatki_sciany':'icon-eraser',
+    'formatki_sciany': 'icon-eraser',
     'sciany': 'icon-trello',
     'montaz': 'icon-home',
     'odbior': 'icon-ok'
 }
 
-headers =[
+headers = [
     'tarcica',
     'płyty',
     'podłoga',
