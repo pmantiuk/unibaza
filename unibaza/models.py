@@ -86,7 +86,7 @@ class Realizacja(db.Model):
     montaz = db.Column(db.Integer, default=0)
     odbior = db.Column(db.Integer, default=0)
     id_modułu = db.Column(db.Integer, db.ForeignKey('metadane.id'), nullable=True)
-    metadane = db.relationship("Metadane", back_populates="realizacja")
+    metadane = db.relationship("Metadane", backref=db.backref("realizacja", uselist=False))
 
 
 class Metadane(db.Model):
@@ -104,4 +104,3 @@ class Metadane(db.Model):
     szer = db.Column(db.Float)
     hala = db.Column(db.String(20))
     dach = db.Column(db.Integer)
-    realizacja = db.relationship("Realizacja", back_populates="metadane")
