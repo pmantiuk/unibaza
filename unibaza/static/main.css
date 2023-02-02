@@ -123,13 +123,14 @@ li {
 #moduł {
   float: left;
   width: 25%;
-  font-size: clamp(0.2vw, 16px, 16px);
+  font-size: clamp(0.2vw, 1.5vw, 16px);
+  word-break: break-all;
 }
 
-#moduł:hover {
+/* #moduł:hover {
   cursor: pointer;
   font-size: clamp(14px,1.5vw,18px);
-}
+} */
 
 .zadanie {
   float: left;
