@@ -103,4 +103,5 @@ class Metadane(db.Model):
     dł = db.Column(db.Float)
     szer = db.Column(db.Float)
     hala = db.Column(db.String(20))
+    dach = db.Column(db.Integer)
     realizacja = db.relationship("Realizacja", back_populates="metadane")
