@@ -10,7 +10,6 @@ from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy import update
 
 
-@app.route("/")
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
@@ -18,6 +17,7 @@ def home():
     return render_template('home.html')
 
 # sortowalny harmonogram z zaawansowaniem prac
+@app.route("/")
 @app.route("/schedule", methods = ['GET', 'POST'])
 @login_required
 def plan():
