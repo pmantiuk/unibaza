@@ -117,7 +117,7 @@ li {
 #indeks {
   float: left;
   width: 5%;
-  font-size: clamp(12px,1.5vw,16px);
+  font-size: clamp(0.2vw, 2vw, 16px);
 }
 
 #moduł {
