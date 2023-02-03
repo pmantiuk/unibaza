@@ -3,6 +3,14 @@
 
 <!-- nagłówek tabeli -->
 <div class="container-fluid" style="padding-left: 0; padding-right: 0;">
+
+    <div id="filtry" class="btn-group">
+    <button class="btn btn-outline-secondary" style="float: left; margin-right: 10px;" id="cramo">Cramo</button>
+    <button class="btn btn-outline-secondary" style="float: left; margin-right: 10px;" id="norweska">Norweska</button>
+    <button class="btn btn-outline-secondary" style="float: left;" id="fabryka">Cała fabryka</button>
+    <div style="clear: both;"></div>
+    </div>
+    
     <div class="sticky">
         <div class="lp">lp</div>
         <div class="moduł">zadanie</div>
@@ -15,11 +23,15 @@
 <div class="row">
 <div id="list">
 <div id="response"></div>
-<ul class="reorder">
+<ul class="reorder" id="list">
 
     {% for modul in realizacja %}
-    <li id="{{modul.id}}">
+    <li id="{{modul.id}}" name="{{modul.metadane.hala}}">
+            {% if modul.metadane.kontrakt.lower().startswith('cramo') %}
+                <div id="indeks" style="background-color: rgb(253, 211, 204);">{{loop.index}}</div>
+            {% else %}
                 <div id="indeks">{{loop.index}}</div>
+            {% endif %}
                 <div id="moduł"><a href="#" data-bs-toggle="modal" data-bs-target="#taskModal{{modul.id}}">{{modul.moduł}}</a></div>  
             {% for obszar in obszary.keys() %}
                 <div class="zadanie">
@@ -111,7 +123,7 @@
 </div>
 </div>
 
-<!-- skrypt z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk -->
+<!-- skrypt sortujący z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk lub sentino -->
 <script type="text/javascript">
     $(document).ready(function(){  
         function slideout(){
@@ -159,6 +171,38 @@
             $("#statusModal"+ nr + " " +"#operacja_modal").val(operacja);
 
         });
+    });
+</script>
+
+<!-- skrypt do filtrowania danych po hali -->
+<script type="text/javascript">
+    document.getElementById("cramo").addEventListener("click", function() {
+    const items = document.querySelectorAll("[name]");
+    items.forEach(function(item) {
+        if (item.getAttribute("name").toLowerCase().includes("cramo")) {
+        item.style.display = "block";
+        } else {
+        item.style.display = "none";
+        }
+    });
+    });
+
+    document.getElementById("norweska").addEventListener("click", function() {
+    const items = document.querySelectorAll("[name]");
+    items.forEach(function(item) {
+        if (item.getAttribute("name").toLowerCase().includes("norweska")) {
+        item.style.display = "block";
+        } else {
+        item.style.display = "none";
+        }
+    });
+    });
+
+    document.getElementById("fabryka").addEventListener("click", function() {
+    const items = document.querySelectorAll("[name]");
+    items.forEach(function(item) {
+        item.style.display = "block";
+    });
     });
 </script>
 
