@@ -17,8 +17,8 @@ def home():
     return render_template('home.html')
 
 # sortowalny harmonogram z zaawansowaniem prac
-@app.route("/")
-@app.route("/schedule", methods = ['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/schedule", methods=['GET', 'POST'])
 @login_required
 def plan():
     # pobieram z bazy danych 'unihouse.db' tabelę 'realizacja' wysortowaną po kolumnie 'listorder'
@@ -40,7 +40,7 @@ def plan():
         else:
             setattr(moduł, operacja, 0)
             db.session.commit()
-    return render_template('schedule.html', realizacja = realizacja, obszary = obszary, headers = headers)
+    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers)
 
 @app.route("/contracts_set", methods =['GET', 'POST'])
 @login_required
