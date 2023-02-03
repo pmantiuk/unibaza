@@ -47,7 +47,11 @@
                 <div class="modal-body">
                     <div class="container">    
                         <div class="row no-gutters">
-                            <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-secondary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_stropy" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica stropy</button></div>
+                            {% if modul.metadane.kontrakt.lower().startswith('cramo') %}
+                                <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"></div>
+                            {% else %}
+                                <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-secondary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_stropy" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica stropy</button></div>
+                            {% endif %}
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-secondary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="formatki_stropy" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-align-center icon-4x" style="color: white; display: block;"></i>płyty stropy</button></div>
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-success" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="podłoga" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-anchor icon-4x" style="color: white; display: block;"></i>podłoga</button></div>
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-primary" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="sufit" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-umbrella icon-4x" style="color: white; display: block;"></i>sufit</button></div>
@@ -56,7 +60,11 @@
                             {% else %}
                                 <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-info" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="dach" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-cloud icon-4x" style="color: white; display: block;"></i>dach</button></div>
                             {% endif %}
-                            <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-dark" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica ściany</button></div>
+                            {% if modul.metadane.kontrakt.lower().startswith('cramo') %}
+                                <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"></div>
+                            {% else %}
+                                <div class="col-sm-6 col-lg-2 offset-md-1 ml-auto"><button id="{{modul.id}}" class="btn btn-dark" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="tarcica_sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-h-sign icon-4x" style="color: white; display: block;"></i>tarcica ściany</button></div>
+                            {% endif %}
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-dark" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="formatki_sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-align-center icon-4x" style="color: white; display: block;"></i>płyty ściany</button></div>
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-warning" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="sciany" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-barcode icon-4x" style="color: white; display: block;"></i>ściany</button></div>
                             <div class="col-sm-6 col-lg-2 ml-auto"><button id="{{modul.id}}" class="btn btn-danger" data-bs-target="#statusModal{{modul.id}}" data-bs-toggle="modal" data-bs-dismiss="modal" value="montaz" style="width: 7rem; height:7rem; margin:0.1rem; font-size:0.9rem;"><i class="icon-home icon-4x" style="color: white; display: block;"></i>montaż</button></div>
