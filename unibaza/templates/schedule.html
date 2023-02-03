@@ -23,7 +23,7 @@
                 <div id="moduł"><a href="#" data-bs-toggle="modal" data-bs-target="#taskModal{{modul.id}}">{{modul.moduł}}</a></div>  
             {% for obszar in obszary.keys() %}
                 <div class="zadanie">
-                    {% if obszar == 'dach' and modul.metadane.dach == 0 %}
+                    {% if obszar == 'dach' and modul.metadane.dach == 0 or obszar in ['tarcica_stropy', 'tarcica_sciany'] and modul.metadane.kontrakt.lower().startswith('cramo') %}
                         <span style="color:#bbb;">-</span> 
                     {% elif modul[obszar] == 1 %}
                         <div class="spinner-grow spinner-grow-sm text-danger" role="status"></div>
