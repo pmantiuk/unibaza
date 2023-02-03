@@ -111,8 +111,47 @@
 </div>
 </div>
 
-<!-- skrypt do sortowania z filmiku yt -->
+<!-- skrypt z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk -->
 <script type="text/javascript">
+    $(document).ready(function(){  
+        function slideout(){
+            setTimeout(function(){
+                $("#response").slideUp("slow", function () {});
+            }, 1200);
+        }
+
+        $("#response").hide();
+        var username = "{{ username }}";
+        if (username === "pmantiuk" || username === "sentino") {
+            $(function() {
+                $("#list ul").sortable({
+                    opacity: 0.8, cursor: 'move', update: function() {
+                        var item_order = new Array();
+                        $('ul.reorder li').each(function() {
+                            item_order.push($(this).attr("id"));
+                        }); 
+                        var order_string = 'order='+item_order;
+                        $.ajax({
+                            method: "POST",
+                            url: "/updateList",
+                            data: order_string,
+                            cache: false,
+                            success: function(data){    
+                                $("#response").html(data);
+                                $("#response").slideDown('slow');
+                                slideout();
+                            }
+                        });               
+                    }         
+                });
+            });
+        }
+    }); 
+</script>
+
+<!-- skrypt do sortowania z filmiku yt -->
+
+<!-- <script type="text/javascript">
     $(document).ready(function(){  
        function slideout(){
         setTimeout(function(){
@@ -145,7 +184,7 @@
        });
       
     }); 
-</script>
+</script> -->
 
 <!-- skrypt do przekazywania zmiennych z modala taskModal do statusModal -->
 <script type="text/javascript">

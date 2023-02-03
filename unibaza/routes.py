@@ -40,7 +40,7 @@ def plan():
         else:
             setattr(moduł, operacja, 0)
             db.session.commit()
-    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers)
+    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers, username=current_user.username)
 
 @app.route("/contracts_set", methods =['GET', 'POST'])
 @login_required
