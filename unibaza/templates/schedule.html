@@ -123,8 +123,8 @@
 </div>
 </div>
 
-<!-- skrypt sortujący z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk lub sentino -->
-<script type="text/javascript">
+<!-- skrypt sortujący z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk lub sentino DZIAŁAJĄCY ORYGINAŁ-->
+<!-- <script type="text/javascript">
     $(document).ready(function(){  
         function slideout(){
             setTimeout(function(){
@@ -154,6 +154,47 @@
                                 slideout();
                             }
                         });               
+                    }         
+                });
+            });
+        }
+    }); 
+</script> -->
+
+<!-- skrypt sortujący z chatgpt sprawdzający czy zalogowany użytkownik to pmantiuk lub sentino zmiany w AJAX -->
+<script type="text/javascript">
+    $(document).ready(function(){  
+        function slideout(){
+            setTimeout(function(){
+                $("#response").slideUp("slow", function () {});
+            }, 1200);
+        }
+
+        $("#response").hide();
+        var username = "{{ username }}";
+        if (username === "pmantiuk" || username === "sentino") {
+            $(function() {
+                $("#list ul").sortable({
+                    opacity: 0.8, cursor: 'move', update: function() {
+                        var item_order = new Array();
+                        $('ul.reorder li').each(function() {
+                            item_order.push($(this).attr("id"));
+                        }); 
+                        var order_string = 'order='+item_order;
+                        $.ajax({
+                            method: "POST",
+                            url: "/updateList",
+                            data: order_string,
+                            cache: false,
+                            headers: {
+                                "Cache-Control": "no-cache, no-store, must-revalidate"
+                            },
+                            success: function(data){    
+                                $("#response").html(data);
+                                $("#response").slideDown('slow');
+                                slideout();
+                            }
+                        });             
                     }         
                 });
             });
