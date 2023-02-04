@@ -235,7 +235,7 @@ div.sticky {
 .lp{
   background: #fafafa;
   width: 5%;
-  font-size: clamp(6px,0.8vw,16px);
+  font-size: clamp(5px,0.8vw,16px);
   float: left;
   border: #CFCFCF solid 0.5px;
   border-right: 0;
@@ -244,7 +244,7 @@ div.sticky {
 .moduł{
   background: #fafafa;
   width: 25%;
-  font-size: clamp(6px,0.8vw,16px);
+  font-size: clamp(5px,0.8vw,16px);
   float: left;
   border: #CFCFCF solid 0.5px;
   border-right: 0;
@@ -295,4 +295,3 @@ li>div>.spinner-grow{
 #filtry {
   margin-bottom: 20px;
  }
- 
