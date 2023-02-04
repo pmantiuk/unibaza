@@ -181,9 +181,10 @@
                             item_order.push($(this).attr("id"));
                         }); 
                         var order_string = 'order='+item_order;
+                        var timestamp = new Date().getTime();
                         $.ajax({
-                            method: "POST",
-                            url: "/updateList",
+                            method: "GET",
+                            url: "/updateList?_=" + timestamp,
                             data: order_string,
                             cache: false,
                             headers: {

@@ -87,6 +87,7 @@ class Realizacja(db.Model):
     odbior = db.Column(db.Integer, default=0)
     id_modułu = db.Column(db.Integer, db.ForeignKey('metadane.id'), nullable=True)
     metadane = db.relationship("Metadane", backref=db.backref("realizacja", uselist=False))
+    czasy = db.relationship("Czasy", backref=db.backref("realizacja_czasy"))
 
 
 class Metadane(db.Model):
@@ -104,3 +105,12 @@ class Metadane(db.Model):
     szer = db.Column(db.Float)
     hala = db.Column(db.String(20))
     dach = db.Column(db.Integer)
+
+class Czasy(db.Model):
+    __tablename__ = 'czasy'
+    id = db.Column(db.Integer, primary_key=True)
+    operacja = db.Column(db.String)
+    user = db.Column(db.String)
+    status = db.Column(db.String)
+    date = db.Column(db.Date)
+    id_modułu = db.Column(db.Integer, db.ForeignKey('realizacja.id_modułu'))

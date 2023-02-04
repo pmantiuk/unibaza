@@ -5,7 +5,7 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort, make_response, jsonify
 from unibaza import app, db, bcrypt, configuration
 from unibaza.forms import RegistrationForm, LoginForm, AddCrate, UpdateAccountForm, PostForm, AddContract, PickContract
-from unibaza.models import User, Post, Skrzynie, Kontrakty, Queue, Realizacja, Metadane
+from unibaza.models import User, Post, Skrzynie, Kontrakty, Queue, Realizacja, Metadane, Czasy
 from flask_login import login_user, current_user, logout_user, login_required
 from sqlalchemy import update
 
@@ -27,20 +27,22 @@ def plan():
     obszary = configuration.obszary
     headers = configuration.headers
     # dokonuje zmiany statusu dla odpowiedniego modułu i operacji w bazie danych 'unihouse.db'
+    user = current_user.username
     if request.method == 'POST':
         id = request.form['id']
         operacja = request.form['operacja']
         moduł = Realizacja.query.filter(Realizacja.id == id).first()
-        if request.form['status'] == 'rozpoczęte':
+        status = request.form['status']
+        if status == 'rozpoczęte':
             setattr(moduł, operacja, 1)
-            db.session.commit()
-        elif request.form['status'] == 'zakończone':
+        elif status == 'zakończone':
             setattr(moduł, operacja, 2)
-            db.session.commit()
         else:
             setattr(moduł, operacja, 0)
-            db.session.commit()
-    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers, username=current_user.username)
+        stempel = Czasy(operacja=operacja, user=user, status=status, date=datetime.now(), id_modułu=id)
+        db.session.add(stempel)
+        db.session.commit()
+    return render_template('schedule.html', realizacja=realizacja, obszary=obszary, headers=headers, username=user)
 
 @app.route("/contracts_set", methods =['GET', 'POST'])
 @login_required
@@ -261,3 +263,6 @@ def updateStatus():
     status = request.args.get('status')
     print(f'id = {id}, operacja = {operacja}, status = {status}')
     return 'Succes'
+
+
+
