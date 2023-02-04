@@ -266,8 +266,8 @@ div.sticky {
 
 /* wygląd wskaźnika rozpoczętego zadania */
 li>div>.spinner-grow{
-  width: 0.5rem; 
-  height: 0.5rem; 
+  width: 0.45rem; 
+  height: 0.45rem;  
   position: relative;
   bottom: 0.25rem;
 }
