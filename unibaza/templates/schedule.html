@@ -177,9 +177,9 @@
 <!-- skrypt do filtrowania danych po hali -->
 <script type="text/javascript">
     document.getElementById("cramo").addEventListener("click", function() {
-    const items = document.querySelectorAll("[name]");
+    const items = document.querySelectorAll("#list [name]");
     items.forEach(function(item) {
-        if (item.getAttribute("name").toLowerCase().includes("cramo")) {
+        if (item.getAttribute("name").toLowerCase().includes("cramo") || item.getAttribute("name").toLowerCase() == "status") {
         item.style.display = "block";
         } else {
         item.style.display = "none";
@@ -188,9 +188,9 @@
     });
 
     document.getElementById("norweska").addEventListener("click", function() {
-    const items = document.querySelectorAll("[name]");
+    const items = document.querySelectorAll("#list [name]");
     items.forEach(function(item) {
-        if (item.getAttribute("name").toLowerCase().includes("norweska")) {
+        if (item.getAttribute("name").toLowerCase().includes("norweska") || item.getAttribute("name").toLowerCase() == "status") {
         item.style.display = "block";
         } else {
         item.style.display = "none";
@@ -199,7 +199,7 @@
     });
 
     document.getElementById("fabryka").addEventListener("click", function() {
-    const items = document.querySelectorAll("[name]");
+    const items = document.querySelectorAll("#list [name]");
     items.forEach(function(item) {
         item.style.display = "block";
     });

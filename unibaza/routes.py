@@ -234,27 +234,13 @@ def queue():
         flash('Nie możesz zadań, których autorem nie jesteś!', 'warning')
     return render_template('queue.html', zadania=zadania)
 
-    # if request.method == 'POST' and ((request.form.get("user")==current_user.username) or (current_user.username in configuration.admins)) :
-    #     obiekt = Skrzynie.query.filter(Skrzynie.id==request.form.get("sk")).first()
-    #     obiekt.zawartosc = request.form.get('content')
-    #     obiekt.szer = request.form.get('szerokość')
-    #     obiekt.wys = request.form.get('wysokość')
-    #     obiekt.dł = request.form.get('długość')
-    #     obiekt.waga = request.form.get('waga')
-    #     print(obiekt.szer)
-    #     db.session.commit()
-    #     flash('Pomyślnie zedytowano skrzynie!', 'success')
-    #     return redirect(url_for('crates_set', nazwa=nazwa))
-    # elif request.method == 'POST':
-    #     flash('Niestety nie masz uprawnień do edycji tej skrzyni.', 'warning')
-    #     return redirect(url_for('crates_set', nazwa=nazwa))
 
 @app.route("/hundeggery")
 def hundeggery():
     pass
     return render_template('queue.html')
 
-@app.route("/updateList",methods=["POST","GET"])
+@app.route("/updateList", methods=["POST", "GET"])
 def updateList():
     if request.method == 'POST':
         number_of_rows = db.session.query(Realizacja.id).count()
@@ -267,3 +253,11 @@ def updateList():
             obiekt.listorder = count
         db.session.commit()
     return jsonify('Zaktualizowano!')
+
+@app.route("/update_status", methods=["POST", "GET"])
+def updateStatus():
+    id = request.args.get('id')
+    operacja = request.args.get('operacja')
+    status = request.args.get('status')
+    print(f'id = {id}, operacja = {operacja}, status = {status}')
+    return 'Succes'
